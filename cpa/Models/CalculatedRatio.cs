@@ -1,29 +1,31 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace cpa.Models
 {
-    public class Ratio
+    public class CalculatedRatio
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int UserID { get; set; }
         public List<StatementLine> Numerator {get; set;}
         public List<StatementLine> Denominator {get; set;}
 
+        public Company Company {get; set;}
+
+        public long Value {get; set;}
+
         //public RatioLines<RatioLine> {get; set;}
         
 
-        public Ratio(int ID, string Name, List<StatementLine> Numerator, List<StatementLine> Denominator )
-        {
-            this.ID = ID;
-            this.Name = Name;
-            this.Numerator = Numerator;
-            this.Denominator = Denominator;
-
+        public CalculatedRatio(Ratio ratio, Company company)
+        {   
+            this.Numerator = ratio.Numerator;
+            this.Denominator = ratio.Denominator;
+            this.Company = company;
+            //this.Value = calculated ratio 
         }
     }
 }
