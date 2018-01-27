@@ -10,25 +10,30 @@ namespace cpa.Models
     {
         [JsonProperty("id")]
         public int ID { get; set; }
+        [JsonProperty("company_id")]
+        public int CompanyID { get; set; }
         
-        [JsonProperty("name")]
-        public string Name { get; set; }
-        
-        [JsonProperty("body")]
+        [JsonProperty("text")]
         public string Body {get; set;}
+
+        [JsonProperty("source")]
+        public string Source {get; set;}
 
         [JsonProperty("date")]
         public DateTime Date {get; set;}
-        //public RatioLines<RatioLine> {get; set;}
+
+        [JsonProperty("title")]
+        public string Title {get; set;}
         
 
-        public Article(int ID, string Name, string Body, DateTime Date)
+        public Article(int ID, int CompanyID, string Title, string Body, DateTime Date, string Source)
         {
             this.ID = ID;
-            this.Name = Name;
+            this.Title = Title;
             this.Body = Body;
             this.Date = Date;
-
+            this.CompanyID = CompanyID;
+            this.Source = Source;
         }
     }
 }

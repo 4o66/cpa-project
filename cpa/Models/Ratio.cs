@@ -20,9 +20,9 @@ namespace cpa.Models
         [JsonProperty("userID")]
         public int UserID { get; set; }
         [JsonProperty("numerator")]
-        public List<StatementLine> Numerator {get; set;}
+        public List<RatioConstruct> Numerator {get; set;}
         [JsonProperty("denominator")]
-        public List<StatementLine> Denominator {get; set;}
+        public List<RatioConstruct> Denominator {get; set;}
 
         //public RatioLines<RatioLine> {get; set;}
         
