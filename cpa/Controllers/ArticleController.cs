@@ -12,6 +12,7 @@ namespace cpa.Controllers
         public IEnumerable<Article> GetArticles()
         {
             //return array of article objects
+            
 
             return null;
         }

@@ -26,5 +26,10 @@ namespace cpa.Models
             this.Operator = Operator;
             this.Position = Position;
         }
+
+        public RatioConstruct(string Name) 
+        {
+            this.Name = Name;
+        }
     }
 }
