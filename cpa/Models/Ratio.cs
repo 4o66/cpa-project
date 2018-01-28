@@ -27,7 +27,7 @@ namespace cpa.Models
         //public RatioLines<RatioLine> {get; set;}
         
 
-        public Ratio(int ID, string Name, List<StatementLine> Numerator, List<StatementLine> Denominator )
+        public Ratio(int ID, string Name, List<RatioConstruct> Numerator, List<RatioConstruct> Denominator )
         {
             this.ID = ID;
             this.Name = Name;

@@ -25,7 +25,7 @@ namespace cpa.Controllers
         [HttpGet("/company/{id}")]
         public IActionResult GetArticleByCompany(long id)
         {
-            //retrieve individual article by an id
+            //retrieve individual article by a Company id
             return null;
         }
          [HttpGet("/company/{companyID}/ratio/{ratioID}")]
@@ -38,6 +38,9 @@ namespace cpa.Controllers
         [HttpPost]
         public IActionResult AddArticle([FromBody] Article article)
         {
+            if (article == null) {
+                return BadRequest();
+            }
             //post article
             return null;
         }

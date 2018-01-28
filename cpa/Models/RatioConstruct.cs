@@ -16,12 +16,15 @@ namespace cpa.Models
 
         [JsonProperty("operator")]
         public string Operator {get; set;}
+        [JsonProperty("position")]
+        public string Position {get; set;}
 
         public RatioConstruct(string Name, decimal Value, string Position)
         {
             this.Name = Name;
             this.Value = Value;
             this.Operator = Operator;
+            this.Position = Position;
         }
     }
 }

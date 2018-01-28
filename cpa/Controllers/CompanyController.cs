@@ -30,6 +30,18 @@ namespace cpa.Controllers
             //retrieve individual company by an id
             return null;
         }
+
+        [HttpPost]
+        public IActionResult AddCompany([FromBody] Company company)
+        {
+            if (company == null)
+            {
+                return BadRequest();
+            }
+            
+            //post company
+            return null;
+        }
         
     }
 }

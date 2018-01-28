@@ -1,0 +1,1 @@
+//Still not too sure on how to handle the object structure. TO BE DETERMINED

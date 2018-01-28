@@ -10,8 +10,8 @@ namespace cpa.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public int UserID { get; set; }
-        public List<StatementLine> Numerator {get; set;}
-        public List<StatementLine> Denominator {get; set;}
+        public List<RatioConstruct> Numerator {get; set;}
+        public List<RatioConstruct> Denominator {get; set;}
 
         public Company Company {get; set;}
 
