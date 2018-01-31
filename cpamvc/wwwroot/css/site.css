@@ -37,6 +37,13 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.scroll-box {
+    overflow-y: scroll;
+    max-height: 600px;
+    height: 100%;
+    width: 100%;
+}
+
 .container {
     max-width: 1400px;
 }

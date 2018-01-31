@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -17,6 +18,8 @@ namespace cpamvc.Models
         public string Symbol { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        public Company() { }
 
         public Company(int ID, string Name)
         {
@@ -39,6 +42,30 @@ namespace cpamvc.Models
             this.Market = Market;
             this.Symbol = Symbol;
         }
+
+        public static List<Company> getCompanies()
+        {
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            List<Company> companies = new List<Company>();
+
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT id, name, description, market, symbol FROM company", sqlConn);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    companies.Add(new Company(Int32.Parse(myReader["id"].ToString()), myReader["name"].ToString(),
+                        myReader["description"].ToString(), myReader["market"].ToString(), myReader["symbol"].ToString()));
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e){Console.WriteLine(e.ToString());}
+            return companies;
+        }
+           
     }
 
     
