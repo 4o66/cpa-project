@@ -1,0 +1,268 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container-fluid bg-dark text-light pt-5 pb-0 mb-0">
+    <div class="container">
+        <!--  <div class="row">
+             <div class="col-sm-7">
+                 <div class="row">
+                     <div>
+                 <p class="mb-0">Choose company:</p>
+                 <div class="dropdown show">
+                     <a  class="btn btn-secondary dropdown-toggle pl-0 title-drop" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <span class="h2">Apple (AAPL)</span>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                         <a class="dropdown-item" href="#">Amazon</a>
+                         <a class="dropdown-item" href="#">Costco</a>
+                         <a class="dropdown-item" href="#">IBM</a>
+                     </div>
+                 </div>
+             </div>
+             <div>
+                 <p class="mb-0 ml-4">Choose ratio:</p>
+                 <div class="dropdown show ml-4">
+                     <a class="btn btn-secondary dropdown-toggle pl-0 title-drop" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <span class="h2">Debt/Assets</span>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                         <a class="dropdown-item" href="#">Something</a>
+                         <a class="dropdown-item" href="#">Another thing</a>
+                         <a class="dropdown-item" href="#">Else</a>
+                     </div>
+                 </div>
+                 </div>
+             </div>
+         </div>
+             <div class="col-sm-5 d-flex">
+                 <div class="align-self-center">
+                     <div id="search-bar">
+                         <div class="input-group">
+                             <input class="form-control input-lg" type="search" placeholder="Search Companies" aria-label="Search">
+                             <button class="btn btn-info" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+         </div> -->
+
+    </div>
+</div>
+<div style="position: absolute;" class="bg-dark container-fluid py-5"></div>
+        </div>
+<!-- End Header Content -->
+<!-- Start Main Content -->
+<div class="container mb-5">
+    <!-- First Card -->
+
+    <div class="row">
+        <div class="col-12 card card-3 pb-5 mt-5">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card text-center p-2 mb-4 card-3 title-card text-light"><span class="h4">Select Company</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="year" class="h5">Company</label>
+                        <select name="year" class="form-control">
+                            <option value="1">Apple</option>
+                            <option value="2">Costco</option>
+                            <option value="3">IBM</option>
+                            <option value="4">Amazon</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="year" class="h5">Ratio</label>
+                        <select name="year" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class='row mt-4'><button class="btn btn-lg btn-success ml-auto  p-2 text-lg card-1">Anaylze</button></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Second Card (Calculations) -->
+    <div class="row">
+        <div class="col-12 card card-3 pb-4 mt-5">
+
+            <div class="row">
+                <!-- First Column  -->
+                <div class="col-md-4">
+                    <!-- Title -->
+                    <div class="card text-center p-2 mb-4 card-3 title-card text-light"><span class="h4">Ratio</span></div>
+                    <p class="h4">Construction</p>
+                    <table class="table">
+                        <tr>
+                            <td>Numerator</td>
+                            <td>
+                                <ul>
+                                    <li>Assets</li>
+                                    <li>Long</li>
+                                    <li>Short</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Denominator</td>
+                            <td>
+                                <ul>
+                                    <li>Debt</li>
+                                    <li>Short term</li>
+                                    <li>Long term</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4 pr-5">
+
+                    <!-- Ratio table -->
+                    <div class="table-responsive px-3 py-1 mr-2">
+                        <p class="h4 mt-5">History</p>
+                        <table class="table table-sm mr-2">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">2016</th>
+                                    <td>Ratio</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2015</th>
+                                    <td>Ratio</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2014</th>
+                                    <td>Ratio</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Table -->
+                </div>
+                <!-- End First Column -->
+                <!-- Second Column (Graph) -->
+                <div class="col-md-4">
+                    <!-- Graph -->
+                    <div class="card text-center p-2 card-3 graph-card text-light">
+                        <p class="h6">Graph</p>
+                        <canvas class="text-light" id="myChart"></canvas>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card card-3 col-12 mt-5 pb-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card text-center p-2 mb-4 card-3 title-card text-light"><span class="h3">Smart Search</span></div>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+                <!-- Title -->
+
+            </div>
+            <div class="row">
+                <div class="col-md-2 px-5 d-flex justify-content-between flex-column">
+                    <p>Keywords</p>
+                    <div class="col pb-5">
+                        <div>
+                            <select multiple="multiple" class="custom-select" id="keywords-select" size="8">
+                                <option value="1">Alpha</option>
+                                <option value="2">Beta</option>
+                                <option value="3">Gamma</option>
+                                <option value="4">Delta</option>
+                                <option value="5">Epsilon</option>
+                                <option value="1">Alpha</option>
+                                <option value="2">Beta</option>
+                                <option value="3">Gamma</option>
+                                <option value="4">Delta</option>
+                                <option value="5">Epsilon</option>
+                            </select>
+                        </div>
+                        <div class="justify-content-end mt-3">
+                            <button class="btn m-auto text-lg card-1">Update</button>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4 px-5">
+
+                    <p class="h4">Select Article</p>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small>Date 1 2018</small>
+                            </div>
+                            <small>Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small class="text-muted">Date 1 2018</small>
+                            </div>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small class="text-muted">Date 1 2018</small>
+                            </div>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small>Date 1 2018</small>
+                            </div>
+                            <small>Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small class="text-muted">Date 1 2018</small>
+                            </div>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="mb-1">Article Title Goes Here</p>
+                                <small class="text-muted">Date 1 2018</small>
+                            </div>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="h4">Article Text</p>
+                    <div class="card p-3">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam recusandae dolore, quos provident sequi pariatur repellat qui voluptas modi culpa autem cupiditate, repellendus earum eum aliquid sunt laborum. A, pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et illo soluta cum ipsa laborum suscipit at consequatur neque molestiae ut vero, sunt ducimus voluptate magni maxime fuga nam aliquid consequuntur.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Main Content -->
