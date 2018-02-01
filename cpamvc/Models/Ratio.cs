@@ -25,6 +25,8 @@ namespace cpamvc.Models
         public List<RatioConstruct> Denominator {get; set;}
 
         //public RatioLines<RatioLine> {get; set;}
+
+            public Ratio() { }
         
 
         public Ratio(int ID, string Name, List<RatioConstruct> Numerator, List<RatioConstruct> Denominator )
