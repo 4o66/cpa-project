@@ -45,6 +45,7 @@ namespace cpamvc.Models
 
         public static List<Company> getCompanies()
         {
+            //Gets all companies -- works
             SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
             List<Company> companies = new List<Company>();
 
@@ -65,6 +66,8 @@ namespace cpamvc.Models
             catch (Exception e){Console.WriteLine(e.ToString());}
             return companies;
         }
+        
+        
            
     }
 

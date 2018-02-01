@@ -95,6 +95,18 @@ namespace cpamvc.Models
             }
             return articles;
         }
+
+        public static List<Article> getArticles(int companyID)
+        {
+            //given company id, return all articles
+            return null;
+        }
+        public static List<Article> getArticles(int companyID, int ratioID)
+        {
+            //IMPORTANT
+            //Using the semantic network, get articles related to given company and ratio
+            return null;
+        }
         
        
 

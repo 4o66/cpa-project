@@ -59,17 +59,53 @@ $('#removeAll').on('click', function () {
 $('#save-ratio').on('click', submitRatio);
 
 function submitRatio() {
-    var numList = document.querySelectorAll('#sbNum option');
-    var numObjList = [];
-    Array.from(numList, (ele) => {
+    let type = document.querySelector('input[name="ratio-type"]:checked').value;
+    let numList = document.querySelectorAll('#sbNum option');
+    let numObjList = [];
+    Array.from(numList, (ele, index) => {
         let innerText = ele.innerHTML;
         let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
         let obj = {
             'id': ele.value,
-            'operator': operator
+            'operator': operator,
+            'position': index
         };
         numObjList.push(obj);
     });
-    console.log(numObjList);
+    let denomiatorList = document.querySelectorAll('#sbDem option');
+    let denominatorObjList = [];
+    Array.from(denomiatorList, (ele, index) => {
+        let innerText = ele.innerHTML;
+        let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
+        let obj = {
+            'id': ele.value,
+            'operator': operator,
+            'position': index
+        };
+        denominatorObjList.push(obj);
+    });
+    let ratioName = document.getElementById('ratio-name-input').value;
+    let ratioObj = {
+        
+            'name': ratioName,
+            'numerator': numObjList,
+            'denominator': denominatorObjList,
+            'type': type
+        
+    }
+    console.log(ratioObj);
 
+    var url = 'RatioConstruction/AddRatio';
+    var data = ratioObj;
+
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(ratioObj),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.ok)
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success'));
+    //TODO HANDLE NULL INPUT
 }

@@ -15,7 +15,7 @@ namespace cpamvc.Models
         public string Name { get; set; }
         
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         [JsonProperty("userID")]
         public int UserID { get; set; }
@@ -36,6 +36,12 @@ namespace cpamvc.Models
             this.Numerator = Numerator;
             this.Denominator = Denominator;
 
+        }
+
+        public static Ratio getRatio(int id)
+        {
+            //given ratio id return a ratio
+            return null;
         }
     }
 }

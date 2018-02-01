@@ -30,5 +30,20 @@ namespace cpamvc.Models
             this.Company = Company;
             this.Details = Details;
         }
+
+        public static Statement GetStatement(int companyID, int year, int type)
+        {
+            //Get statement for given company, year, and type (balance sheet or income(1 or 2) )
+            return null;
+        }
+        public static List<Statement> GetStatements(int companyID)
+        {
+            //Get all statements related to a company
+            return null;
+        }
+    
+   
+            
+       
     }
 }

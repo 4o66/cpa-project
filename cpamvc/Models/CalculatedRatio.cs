@@ -27,5 +27,11 @@ namespace cpamvc.Models
             this.Company = company;
             //this.Value = calculated ratio 
         }
+
+        public static List<CalculatedRatio> GetCalculatedRatios(int ratioID, int companyID)
+        {
+            //given ratioid, cID return calculated ratio for every year (4) )
+            return null;
+        }
     }
 }

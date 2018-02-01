@@ -18,5 +18,16 @@ namespace cpamvc.Controllers
             ViewData["ratioConstructs"] = list;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult AddRatio([FromBody] Ratio ratio)
+        {
+            //works in js
+            //Given a ratio, add it to the database. Additionally
+            // verify that it is valid and what not
+
+
+            return Ok();
+        }
     }
 }
