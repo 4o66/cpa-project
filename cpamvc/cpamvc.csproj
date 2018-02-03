@@ -5,12 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="js\initialize.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="assets\img\chart-icon.png" />
     <Content Include="assets\img\money-icon.png" />
     <Content Include="assets\img\splash.jpeg" />
     <Content Include="assets\img\time-icon.png" />
     <Content Include="css\site.css" />
     <Content Include="css\site.min.css" />
+    <Content Include="js\initialize.js" />
     <Content Include="js\site.js" />
     <Content Include="js\site.min.js" />
   </ItemGroup>

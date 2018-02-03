@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -14,6 +15,9 @@ namespace cpamvc.Models
         [JsonProperty("id")]
         public int ID { get; set; }
 
+        [JsonProperty("tag")]
+
+        public string Tag { get; set; }
         [JsonProperty("value")]
         public decimal Value { get; set; }
 
@@ -21,6 +25,9 @@ namespace cpamvc.Models
         public string Operator { get; set; }
         [JsonProperty("position")]
         public string Position { get; set; }
+
+        [JsonProperty("line")]
+        public int Line { get; set; }
 
         public RatioConstruct() { }
 
@@ -58,25 +65,22 @@ namespace cpamvc.Models
             return list;
         }
 
-        public static int AddRatio(Ratio newRatio)
-        {
+        
 
-            //Add a ratio. So far only adds the ratio part,
-            //still needs to add the denominator and numerator so
-            //feel free to scrap it or build off of it
+        public static int AddRatioConstruct(RatioConstruct construct)
+        {
             SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
             int rows = -1;
             try
             {
                 sqlConn.Open();
-                string commandText = "INSERT INTO ratio (name, type, user_id) " +
-                    "VALUES (@name, @type, 0)";
+                string commandText = "INSERT INTO ratio_construct (name, tag) " +
+                    "VALUES (@name, @tag)";
                 SqlCommand sqlCmd = new SqlCommand(commandText, sqlConn);
-                sqlCmd.Parameters.AddWithValue("@name", newRatio.Name);
-                sqlCmd.Parameters.AddWithValue("@type", newRatio.Type);
+                sqlCmd.Parameters.AddWithValue("@name", construct.Name);
+                sqlCmd.Parameters.AddWithValue("@tag", construct.Tag);
                 rows = sqlCmd.ExecuteNonQuery();
-                Console.WriteLine("rows affected: {0}", rows);
-
+                Debug.WriteLine("rows affected: " + rows);
                 sqlConn.Close();
             }
             catch (Exception e) { Console.WriteLine(e.ToString()); }

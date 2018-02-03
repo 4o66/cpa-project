@@ -41,6 +41,23 @@ namespace cpamvc.Models
             //Get all statements related to a company
             return null;
         }
+
+        public static int AddStatement(Statement statement)
+        {
+            int rows = -1;
+            //Get company id
+
+            //Get statement id given company id and year
+
+            //Get ratio construct id
+            //either mapped key value array from tag to id, or do it in the statemnt line add
+
+            //add statement line
+                //add statement id, line (i++), ratio construct id, value
+
+
+            return rows;
+        }
     
    
             
