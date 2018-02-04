@@ -33,4 +33,8 @@
     <Folder Include="assets\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\js\statements.js" />
+  </ItemGroup>
+
 </Project>

@@ -66,6 +66,29 @@ namespace cpamvc.Models
             catch (Exception e){Console.WriteLine(e.ToString());}
             return companies;
         }
+
+        public static int GetCompanyID(Statement statement)
+        {
+            Company company = statement.Company;
+            int cID = -1;
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT id FROM company WHERE symbol = @ticker", sqlConn);
+                sqlCmd.Parameters.AddWithValue("@ticker", company.Symbol);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    cID = Int32.Parse(myReader["id"].ToString());
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return cID;
+        }
         
         
            

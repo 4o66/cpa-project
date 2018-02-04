@@ -8,6 +8,15 @@
 
 @{ 
     var companyList = (List<Company>)ViewData["companies"];
+    var statementsList = (List<Statement>)ViewData["statements"];
+    var currentCompany = (int)ViewData["companyID"];
+    var currentTab = (string)ViewData["currentStatement"];
+    var incomeTabActive = (currentTab == "income_statement") ? " active " : " ";
+    var balanceTab = (currentTab == "balance_sheet") ? " active " : " ";
+    var currentStatement = (currentTab == "income_statement") ? "Income Statement" : "Balance Sheet";
+    var currentCompanyName = "";
+
+
 }
 
 <div class="container-fluid bg-dark text-light pt-5 pb-5 mb-0">
@@ -16,10 +25,18 @@
             <div class="col-sm-7">
                 <label class="mr-sm-2" for="inlineFormCustomSelect">Choose Company</label>
                 <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    @foreach(var comp in companyList)
+                    @foreach (var comp in companyList)
                     {
-                        <option value="@comp.ID">@comp.Name</option>
+                        if (currentCompany == comp.ID)
+                        {
+                         <option selected value="@comp.ID">@comp.Name</option>
+                            currentCompanyName = comp.Name;
+                        }
+                        else
+                        {
+                            <option value="@comp.ID">@comp.Name</option>
 
+                        }
                     }
                 </select>
                 @*<p class="mb-0">Choose company:</p>
@@ -67,68 +84,53 @@
             </div>
             <div class="container-fluid p-4">
                 <div class="row">
-                    <ul class="nav">
+                    <ul class="nav statement-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Income Sheet</a>
+                            <a id="income-tab" href="#" class="nav-link @incomeTabActive">Income Statement</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Balance Sheet</a>
+                            <a id="balance-tab" href="#" class="nav-link @balanceTab">Balance Sheet</a>
                         </li>
                     </ul>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h3>@currentStatement for @currentCompanyName</h3>
+                    </div>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
+                            
                             <th></th>
-                            <th scope="col">2017</th>
-                            <th scope="col">2016</th>
-                            <th scope="col">2015</th>
-                            <th scope="col">2014</th>
+                            @foreach(Statement statement in statementsList)
+                            {
+                                <th scope="col">@statement.Year</th>
+
+                            }
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        @for(var i = 0; i < statementsList[0].Details.Count; i++)
+                        {
+                            
+                            <tr>
+                            <th scope="row">@statementsList[0].Details[i].Name</th>
+                            @foreach(Statement statement in statementsList)
+                            {
+                                if (!(i >= statement.Details.Count))
+                                {
+
+                                    var value = statement.Details[i].Value;
+                                    var label = (value > 101) ? "$ " + @String.Format("{0:n0}", value) : " " + value;
+                                <td>@label</td> 
+                                }
+
+                            }
+                            </tr>
+                        }
+                        
                     </tbody>
 
                 </table>
@@ -137,3 +139,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/statements.js" asp-append-version="true"></script>
+}

@@ -65,6 +65,77 @@ namespace cpamvc.Models
             return list;
         }
 
+        public static string GetRatioConstructName(int id)
+        {
+            //Gets all ratio constructs
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            string name = "not found";
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT name FROM ratio_construct WHERE id = @id", sqlConn);
+                sqlCmd.Parameters.AddWithValue("@id", id);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    name = myReader["name"].ToString();
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return name;
+        }
+        public static string GetRatioConstructTag(int id)
+        {
+            //Gets all ratio constructs
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            string tag = "not found";
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT tag FROM ratio_construct WHERE id = @id", sqlConn);
+                sqlCmd.Parameters.AddWithValue("@id", id);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    tag = myReader["tag"].ToString();
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return tag;
+        }
+
+        public static int GetRatioConstructID(RatioConstruct construct)
+        {
+            
+            int id = -1;
+            string tag = construct.Tag;
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT id FROM ratio_construct WHERE " +
+                    "tag = @tag", sqlConn);
+               
+                sqlCmd.Parameters.AddWithValue("@tag", tag);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    id = Int32.Parse(myReader["id"].ToString());
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return id;
+        }
+
         
 
         public static int AddRatioConstruct(RatioConstruct construct)
@@ -74,8 +145,10 @@ namespace cpamvc.Models
             try
             {
                 sqlConn.Open();
-                string commandText = "INSERT INTO ratio_construct (name, tag) " +
-                    "VALUES (@name, @tag)";
+                string commandText = "IF NOT EXISTS (" +
+                    " SELECT id FROM ratio_construct WHERE tag = @tag )" +
+                    " BEGIN INSERT INTO ratio_construct (name, tag) " +
+                    "VALUES (@name, @tag) END";
                 SqlCommand sqlCmd = new SqlCommand(commandText, sqlConn);
                 sqlCmd.Parameters.AddWithValue("@name", construct.Name);
                 sqlCmd.Parameters.AddWithValue("@tag", construct.Tag);

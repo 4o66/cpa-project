@@ -15,6 +15,12 @@
     line-height: 1.4;
 }
 
+.statement-tabs .active {
+    background-color: #0099CC;
+    border-radius: 5px;
+    color: white;
+}
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;

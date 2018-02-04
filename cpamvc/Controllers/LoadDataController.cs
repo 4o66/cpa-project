@@ -23,7 +23,7 @@ namespace cpamvc.Controllers
             long rows = -1;
             foreach(RatioConstruct ratio in constructs)
             {
-                System.Diagnostics.Debug.WriteLine(ratio.Name + "  ...  " + ratio.Tag);
+                System.Diagnostics.Trace.WriteLine(ratio.Name + "  ...  " + ratio.Tag);
                 RatioConstruct toAdd = new RatioConstruct { Name = ratio.Name, Tag = ratio.Tag };
                 rows =  RatioConstruct.AddRatioConstruct(toAdd);
             }
@@ -37,15 +37,9 @@ namespace cpamvc.Controllers
         public IActionResult AddStatement([FromBody] Statement statement)
         {
             long rows = -1;
-            System.Diagnostics.Debug.WriteLine(statement.Company.Symbol);
-            System.Diagnostics.Debug.WriteLine(statement.Name);
 
-            List<RatioConstruct> lines = statement.Details;
-            foreach(RatioConstruct line in lines)
-            {
-                System.Diagnostics.Debug.WriteLine(line.Tag + " .. " + line.Value);
-                
-            }
+
+            Statement.AddStatement(statement);
             return Ok();
         }
     }
