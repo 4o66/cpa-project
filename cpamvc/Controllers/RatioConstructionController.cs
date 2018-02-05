@@ -22,11 +22,11 @@ namespace cpamvc.Controllers
         [HttpPost]
         public IActionResult AddRatio([FromBody] Ratio ratio)
         {
-            //works in js
-            //Given a ratio, add it to the database. Additionally
-            // verify that it is valid and what not
+            
+            int rows = Ratio.AddRatio(ratio);
 
-
+            if (rows == -1)
+                return NotFound();
             return Ok();
         }
     }
