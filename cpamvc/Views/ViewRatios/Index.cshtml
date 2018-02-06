@@ -2,6 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Ratio> ratioList = (List<Ratio>)ViewData["ratio-list"];
+    Ratio currentRatio = (Ratio)ViewData["current-ratio"];
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-0 mb-0">
     <div class="container">
@@ -70,23 +72,27 @@
 
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label class="h5" for="exampleFormControlSelect2">Select a ratio to view details.</label>
-                        <select multiple class="form-control" size="8" id="select-ratio">
-                            <option>Ratio 1</option>
-                            <option>Ratio 2</option>
-                            <option>Ratio 3</option>
-                            <option>Ratio 4</option>
-                            <option>Ratio 5</option>
+                        <select class="form-control" size="8" id="select-ratio">
+                            @foreach (Ratio ratio in ratioList)
+                            {
+                                if (ratio.ID == currentRatio.ID)
+                                {
+                                  <option selected value="@ratio.ID">@ratio.Name</option>
+                                }
+                                else
+                                {                               
+                                    <option value="@ratio.ID">@ratio.Name</option>
+                                }
+                           
+                            }
                         </select>
                     </div>
                 </div>
-                <div class="col-md-1">
 
-
-                </div>
-                <div class="col-md-4 pr-5">
+                <div class="col-md-5 pr-5">
                     <!-- Title -->
 
                     <p class="h4">Construction</p>
@@ -95,9 +101,12 @@
                             <td>Numerator</td>
                             <td>
                                 <ul>
-                                    <li>Assets</li>
-                                    <li>Long</li>
-                                    <li>Short</li>
+                                    @foreach (RatioConstruct construct in currentRatio.Numerator)
+                                    {
+                                        <li>@construct.Operator @construct.Name</li>
+
+                                    }
+
                                 </ul>
                             </td>
                         </tr>
@@ -105,9 +114,12 @@
                             <td>Denominator</td>
                             <td>
                                 <ul>
-                                    <li>Debt</li>
-                                    <li>Short term</li>
-                                    <li>Long term</li>
+                                    @foreach (RatioConstruct construct in currentRatio.Denominator)
+                                    {
+                                        <li>@construct.Operator @construct.Name</li>
+
+                                    }
+
                                 </ul>
                             </td>
                         </tr>
@@ -115,12 +127,13 @@
                 </div>
                 <!-- End First Column -->
                 <!-- Second Column (Graph) -->
-                <div class="col-md-1">
 
-
-                </div>
             </div>
         </div>
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/viewRatios.js" asp-append-version="true"></script>
+}

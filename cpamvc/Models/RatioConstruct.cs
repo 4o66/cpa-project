@@ -24,15 +24,15 @@ namespace cpamvc.Models
         [JsonProperty("operator")]
         public string Operator { get; set; }
         [JsonProperty("position")]
-        public int Position { get; set; }
-
-
+        public string Position { get; set; }
+        [JsonProperty("order")]
+        public int Order { get; set; }
         [JsonProperty("line")]
         public int Line { get; set; }
 
         public RatioConstruct() { }
 
-        public RatioConstruct(string Name, decimal Value, int Position)
+        public RatioConstruct(string Name, decimal Value, string Position)
         {
             this.Name = Name;
             this.Value = Value;

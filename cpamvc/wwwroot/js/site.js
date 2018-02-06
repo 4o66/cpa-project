@@ -68,7 +68,7 @@ function submitRatio() {
         let obj = {
             'id': ele.value,
             'operator': operator,
-            'position': index
+            'order': index
         };
         numObjList.push(obj);
     });
@@ -80,7 +80,7 @@ function submitRatio() {
         let obj = {
             'id': ele.value,
             'operator': operator,
-            'position': index
+            'order': index
         };
         denominatorObjList.push(obj);
     });
