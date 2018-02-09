@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+@{ 
+    string page = ViewContext.RouteData.Values["controller"].ToString();
+
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,15 +27,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                <ul class="navbar-nav ml-auto ">
+                    <li class="nav-item @(page == "Home" ? "active" : "")">
                         <a class="nav-link" asp-controller="Home">Home<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(page == "Statements" ? "active" : "")">
                         <a asp-area="" class="nav-link" asp-controller="Statements" asp-action="Index">Statements</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown @(page == "RatioConstruction" || page == "ViewRatios" ? "active" : "")">
+                        <a class="nav-link" dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ratio
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,7 +43,7 @@
                             <a class="dropdown-item"asp-area="" asp-controller="ViewRatios" asp-action="Index">View Ratios</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown @(page == "ViewObjects" || page == "ObjectCreation" || page == "PredicateCreation" ? "active" : "")">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Knowledge
                         </a>
@@ -48,7 +53,7 @@
                             <a class="dropdown-item" asp-area="" asp-controller="ViewObjects" asp-action="Index">View Objects</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown @(page == "AddSource" | page == "ViewSource" ? "active" : "")">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Text
                         </a>
@@ -57,7 +62,7 @@
                             <a class="dropdown-item" asp-area="" asp-controller="ViewSource" asp-action="Index">View Source</a>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @(page == "Analysis" ? "active" : "")">
                         <a class="nav-link" asp-area="" asp-controller="Analysis" asp-action="Index">Analysis</a>
                     </li>
                 </ul>

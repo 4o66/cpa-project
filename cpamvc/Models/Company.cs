@@ -66,6 +66,33 @@ namespace cpamvc.Models
             catch (Exception e){Console.WriteLine(e.ToString());}
             return companies;
         }
+        public static Company GetCompany(int id)
+        {
+            Company company = new Company();
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT id, name, symbol FROM company WHERE id = @id", sqlConn);
+                sqlCmd.Parameters.AddWithValue("@id", id);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    company = new Company
+                    {
+                        ID = Int32.Parse(myReader["id"].ToString()),
+                        Name = myReader["name"].ToString(),
+                        Symbol = myReader["symbol"].ToString()
+                    };
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return company;
+        }
+    
 
         public static int GetCompanyID(Statement statement)
         {

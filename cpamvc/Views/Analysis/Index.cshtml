@@ -2,6 +2,10 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Ratio> ratios = (List<Ratio>)ViewData["ratios"];
+    List<Company> companies = (List<Company>)ViewData["companies"];
+    Ratio currentRatio = (Ratio)ViewData["currentRatio"];
+    Company currentCompany = (Company)ViewData["currentCompany"];
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-0 mb-0">
     <div class="container">
@@ -69,27 +73,41 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="year" class="h5">Company</label>
-                        <select name="year" class="form-control">
-                            <option value="1">Apple</option>
-                            <option value="2">Costco</option>
-                            <option value="3">IBM</option>
-                            <option value="4">Amazon</option>
+                        <label for="company" class="h5">Company</label>
+                        <select id="company-select" name="company" class="form-control">
+                            @foreach(Company company in companies)
+                            {
+                                if (company.ID == currentCompany.ID)
+                                {
+                                <option value="@company.ID" selected >@company.Name</option>
+                                }
+                                else
+                                {
+                                <option value="@company.ID">@company.Name</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="year" class="h5">Ratio</label>
-                        <select name="year" class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                        <label for="ratio" class="h5">Ratio</label>
+                        <select id="ratio-select" name="ratio" class="form-control">
+                             @foreach(Ratio ratio in ratios)
+                             {
+                                 if(ratio.ID == currentRatio.ID)
+                                 {
+                                   <option selected value="@ratio.ID">@ratio.Name</option>
+                                 }
+                                 else
+                                 {
+                                   <option value="@ratio.ID">@ratio.Name</option>
+                                 }
+                            }
                         </select>
                     </div>
-                    <div class='row mt-4'><button class="btn btn-lg btn-success ml-auto  p-2 text-lg card-1">Anaylze</button></div>
+                    <div class='row mt-4'><button id="analyze-button" class="btn btn-lg btn-success ml-auto  p-2 text-lg card-1">Anaylze</button></div>
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -112,9 +130,11 @@
                             <td>Numerator</td>
                             <td>
                                 <ul>
-                                    <li>Assets</li>
-                                    <li>Long</li>
-                                    <li>Short</li>
+                                    @foreach(RatioConstruct c in currentRatio.Numerator)
+                                    {
+                                        <li>@c.Operator @c.Name</li>
+
+                                    }
                                 </ul>
                             </td>
                         </tr>
@@ -122,9 +142,11 @@
                             <td>Denominator</td>
                             <td>
                                 <ul>
-                                    <li>Debt</li>
-                                    <li>Short term</li>
-                                    <li>Long term</li>
+                                    @foreach(RatioConstruct c in currentRatio.Denominator)
+                                    {
+                                        <li>@c.Operator @c.Name</li>
+
+                                    }
                                 </ul>
                             </td>
                         </tr>
@@ -266,3 +288,6 @@
     </div>
 </div>
 <!-- End Main Content -->
+@section Scripts {
+    <script src="~/js/analyze.js"></script>
+}

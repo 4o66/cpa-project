@@ -106,6 +106,13 @@ function submitRatio() {
         })
     }).then(res => res.ok)
         .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success'));
+        .then(response => {
+            showSuccessModal();
+            console.log('Success')
+        });
     //TODO HANDLE NULL INPUT
+}
+
+function showSuccessModal() {
+    $('#success-modal').modal('toggle');
 }

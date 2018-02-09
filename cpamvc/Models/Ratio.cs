@@ -59,6 +59,7 @@ namespace cpamvc.Models
                         Name = myReader["name"].ToString(),
                         Type = Int32.Parse(myReader["type"].ToString())
                     };
+                    newRatio = GetRatioDetails(newRatio);
                     ratioList.Add(newRatio);
                 }
 

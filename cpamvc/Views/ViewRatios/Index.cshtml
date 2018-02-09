@@ -123,6 +123,17 @@
                                 </ul>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                @currentRatio.Name = 
+                            </td>
+                            <td>(@foreach (RatioConstruct construct in currentRatio.Numerator)
+                                {@construct.Operator @construct.Name})
+                                /
+                                (@foreach (RatioConstruct construct in currentRatio.Denominator)
+                                {@construct.Operator @construct.Name})
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <!-- End First Column -->
