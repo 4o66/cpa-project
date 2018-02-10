@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Company> companies = (List<Company>)ViewData["companies"];
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-5 mb-0">
     <div class="container">
@@ -53,52 +54,67 @@
             <div class="row px-5 pt-4">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <form action="">
+                    <form id="addArticleForm" name="addArticleForm" action="">
                         <div class="form-group">
                             <label for="object-a">Company</label>
                             <select name="company" class="form-control">
-                                <option value="Apple">Apple</option>
-                                <option value="">Company</option>
-                                <option>Company</option>
-                                <option>Company</option>
+                                @foreach(Company c in companies)
+                                {
+                                    <option value="@c.ID">@c.Name</option>
+
+                                }
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="source">Text Source</label>
-                            <input type="text" name="source" class="form-control">
+                            <input required type="text" name="source" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="url">Article URL</label>
+                            <input required type="text" name="url" class="form-control">
                         </div>
                         <div class="form-group">
                             <div class="row">
+
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="year">Year</label>
-                                        <select name="year" class="form-control">
-                                            <option value="2018">2018</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="year">Month</label>
-                                        <select name="year" class="form-control">
+                                        <label for="month">Month</label>
+                                        <select name="month" class="form-control">
                                             <option value="Jan">Jan</option>
                                             <option value="Feb">Feb</option>
                                             <option value="Mar">Mar</option>
                                             <option value="Apr">Apr</option>
+                                            <option value="Jan">May</option>
+                                            <option value="Feb">Jun</option>
+                                            <option value="Mar">Jul</option>
+                                            <option value="Apr">Aug</option>
+                                            <option value="Jan">Sep</option>
+                                            <option value="Feb">Oct</option>
+                                            <option value="Mar">Nov</option>
+                                            <option value="Apr">Dec</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="year">Day</label>
+                                        <label for="day">Day</label>
+                                        <select name="day" class="form-control">
+                                            @for (var i = 1; i <= 31; i++)
+                {
+                            <option value="@i">@i</option>
+}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="year">Year</label>
                                         <select name="year" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
+                                            @for (var i = DateTime.Now.Year; i > DateTime.Now.Year - 16; i--)
+                {
+                            <option value="@i">@i</option>
+
+}
                                         </select>
                                     </div>
                                 </div>
@@ -106,13 +122,18 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="source-text">Article Text</label>
-                            <textarea class="form-control" id="source-text" name="source-text" rows="6"></textarea>
+                            <label for="title">Article Title</label>
+                            <input required type="text" name="title" class="form-control">
                         </div>
-                        <div class="form-group d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary ml-auto">Save Article</button>
+                        <div class="form-group">
+                            <label for="text">Article Text</label>
+                            <textarea required class="form-control" id="source-text" name="text" rows="6"></textarea>
                         </div>
+
                     </form>
+                    <div class="form-group d-flex justify-content-end">
+                        <button id="submitArticle" class="btn btn-primary ml-auto">Save Article</button>
+                    </div>
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -121,3 +142,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/addSource.js"></script>
+}

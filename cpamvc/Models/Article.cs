@@ -16,7 +16,7 @@ namespace cpamvc.Models
         [JsonProperty("company_id")]
         public int CompanyID { get; set; }
         
-        [JsonProperty("text")]
+        [JsonProperty("body")]
         public string Body {get; set;}
 
         [JsonProperty("source")]
@@ -27,6 +27,8 @@ namespace cpamvc.Models
 
         [JsonProperty("title")]
         public string Title {get; set;}
+        [JsonProperty("url")]
+        public string URL { get; set; }
         
         public Article() { }
 
@@ -108,6 +110,31 @@ namespace cpamvc.Models
             return null;
         }
         
+        public static int AddArticle(Article article)
+        {
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            int rows = -1;
+            try
+            {
+                sqlConn.Open();
+                string commandText = "INSERT INTO article (company_id, source, date, url, " +
+                    "text, title) " +
+                    "VALUES (@company_id, @source, @date, @url, @text, @title) ";
+                SqlCommand sqlCmd = new SqlCommand(commandText, sqlConn);
+                sqlCmd.Parameters.AddWithValue("@company_id", article.CompanyID);
+                sqlCmd.Parameters.AddWithValue("@source", article.Source);
+                sqlCmd.Parameters.AddWithValue("@date", article.Date);
+                sqlCmd.Parameters.AddWithValue("@url", article.URL);
+                sqlCmd.Parameters.AddWithValue("@text", article.Body);
+                sqlCmd.Parameters.AddWithValue("@title", article.Title);
+                rows = sqlCmd.ExecuteNonQuery();
+                Console.WriteLine("rows affected: {0}", rows);
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+
+            return rows;
+        }
        
 
            
