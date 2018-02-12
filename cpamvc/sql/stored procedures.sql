@@ -1,4 +1,4 @@
-use cpa
+--use cpa
 
 --declare @rid as int
 --declare @cid as int
@@ -17,6 +17,15 @@ alter procedure getRatio
 
 as
 begin
+	declare @ratio_calc table (
+		position varchar(1),
+		equation_order int,
+		ratio_construct_id int,
+		operator varchar(1),
+		value money
+	)
+
+	insert into @ratio_calc
 	select	distinct --r.name, 
 			rd.position, 
 			rd.equation_order, 
@@ -33,7 +42,6 @@ begin
 							s.value
 						end
 			end as value
-	into #ratio_calc
 	from ratio_detail rd
 	join ratio r on rd.ratio_id = r.id
 	join ratio_construct rc on rd.ratio_construct_id = rc.id
@@ -57,13 +65,13 @@ begin
 	--where position = 'd'
 
 	select	case
-				when (select sum(value) as value from #ratio_calc where position = 'd') = 0
+				when (select sum(value) as value from @ratio_calc where position = 'd') = 0
 					then 0
 				else
-					((select sum(value) as value from #ratio_calc where position = 'n')/
-					(select sum(value) as value from #ratio_calc where position = 'd'))
+					((select sum(value) as value from @ratio_calc where position = 'n')/
+					(select sum(value) as value from @ratio_calc where position = 'd'))
 			end as value
 
-	drop table #ratio_calc
+	--drop table #ratio_calc
 
 end;
