@@ -27,13 +27,16 @@ namespace cpamvc.Controllers
             {
                 currentCompany = Company.GetCompany(company_id);
             }
-            System.Diagnostics.Trace.WriteLine("...... company  " + currentCompany.Name);
-            System.Diagnostics.Trace.WriteLine("........ ratio " + currentRatio.Name);
+            List<CalculatedRatio> calculatedRatios = CalculatedRatio.GetCalculatedRatios(currentRatio, currentCompany);
+            ViewData["calculatedRatios"] = calculatedRatios;
+           
             ViewData["currentRatio"] = currentRatio;
             ViewData["currentCompany"] = currentCompany;
             ViewData["companies"] = companies;
             ViewData["ratios"] = ratios;
             return View();
         }
+
+       
     }
 }

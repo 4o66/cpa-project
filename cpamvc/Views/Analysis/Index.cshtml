@@ -3,6 +3,7 @@
 *@
 @{
     List<Ratio> ratios = (List<Ratio>)ViewData["ratios"];
+    List<CalculatedRatio> calculatedRatios = (List<CalculatedRatio>)ViewData["calculatedRatios"];
     List<Company> companies = (List<Company>)ViewData["companies"];
     Ratio currentRatio = (Ratio)ViewData["currentRatio"];
     Company currentCompany = (Company)ViewData["currentCompany"];
@@ -75,15 +76,15 @@
                     <div class="form-group">
                         <label for="company" class="h5">Company</label>
                         <select id="company-select" name="company" class="form-control">
-                            @foreach(Company company in companies)
+                            @foreach (Company company in companies)
                             {
                                 if (company.ID == currentCompany.ID)
                                 {
-                                <option value="@company.ID" selected >@company.Name</option>
+                                    <option value="@company.ID" selected>@company.Name</option>
                                 }
                                 else
                                 {
-                                <option value="@company.ID">@company.Name</option>
+                                    <option value="@company.ID">@company.Name</option>
                                 }
                             }
                         </select>
@@ -94,16 +95,16 @@
                     <div class="form-group">
                         <label for="ratio" class="h5">Ratio</label>
                         <select id="ratio-select" name="ratio" class="form-control">
-                             @foreach(Ratio ratio in ratios)
-                             {
-                                 if(ratio.ID == currentRatio.ID)
-                                 {
-                                   <option selected value="@ratio.ID">@ratio.Name</option>
-                                 }
-                                 else
-                                 {
-                                   <option value="@ratio.ID">@ratio.Name</option>
-                                 }
+                            @foreach (Ratio ratio in ratios)
+                            {
+                                if (ratio.ID == currentRatio.ID)
+                                {
+                                    <option selected value="@ratio.ID">@ratio.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@ratio.ID">@ratio.Name</option>
+                                }
                             }
                         </select>
                     </div>
@@ -130,7 +131,7 @@
                             <td>Numerator</td>
                             <td>
                                 <ul>
-                                    @foreach(RatioConstruct c in currentRatio.Numerator)
+                                    @foreach (RatioConstruct c in currentRatio.Numerator)
                                     {
                                         <li>@c.Operator @c.Name</li>
 
@@ -142,7 +143,7 @@
                             <td>Denominator</td>
                             <td>
                                 <ul>
-                                    @foreach(RatioConstruct c in currentRatio.Denominator)
+                                    @foreach (RatioConstruct c in currentRatio.Denominator)
                                     {
                                         <li>@c.Operator @c.Name</li>
 
@@ -159,18 +160,19 @@
                         <p class="h4 mt-5">History</p>
                         <table class="table table-sm mr-2">
                             <tbody>
-                                <tr>
-                                    <th scope="row">2016</th>
-                                    <td>Ratio</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2015</th>
-                                    <td>Ratio</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2014</th>
-                                    <td>Ratio</td>
-                                </tr>
+
+                                @foreach (CalculatedRatio r in calculatedRatios)
+                                {
+                                    <tr>
+                                        <td>
+                                            @r.Year
+                                        </td>
+                                        <td>
+                                            @r.Value
+                                        </td>
+                                    </tr>
+
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -289,5 +291,7 @@
 </div>
 <!-- End Main Content -->
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js" integrity="sha256-vyehT44mCOPZg7SbqfOZ0HNYXjPKgBCaqxBkW3lh6bg=" crossorigin="anonymous"></script>
     <script src="~/js/analyze.js"></script>
+
 }

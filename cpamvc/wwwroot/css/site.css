@@ -45,7 +45,7 @@ body {
 
 .scroll-box {
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 800px;
     height: 100%;
     width: 100%;
 }
