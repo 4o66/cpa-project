@@ -12,6 +12,7 @@ namespace cpamvc.Models
         public Ratio Ratio { get; set; }
         public decimal Value { get; set; }
         public int Year { get; set; }
+        public CalculatedRatio() { }
 
         public CalculatedRatio(Ratio ratio, Company company, int year)
         {
@@ -19,28 +20,42 @@ namespace cpamvc.Models
             this.Company = company;
             this.Year = year;
 
+            
+            
+            //this.Value = calculated ratio 
+        }
+
+        public static CalculatedRatio GetCalculatedRatio(Ratio ratio, Company company, int year)
+        {
+            CalculatedRatio calculated = new CalculatedRatio
+            {
+                Ratio = ratio,
+                Company = company,
+                Year = year
+            };
+            System.Diagnostics.Trace.WriteLine(".... Ratio ID = " + calculated.Ratio.ID);
             SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
 
             try
             {
                 sqlConn.Open();
 
-                SqlDataReader myReader = null;
-                SqlCommand sqlCmd = new SqlCommand("exec getRatio", sqlConn);
-                sqlCmd.Parameters.AddWithValue("@companyID", this.Company.ID);
-                sqlCmd.Parameters.AddWithValue("@ratioID", this.Ratio.ID);
-                sqlCmd.Parameters.AddWithValue("@year", this.Year);
-                myReader = sqlCmd.ExecuteReader();
-                while (myReader.Read())
+                SqlCommand sqlCmd = new SqlCommand("getRatio", sqlConn);
+                sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@companyID", calculated.Company.ID);
+                sqlCmd.Parameters.AddWithValue("@ratioID", calculated.Ratio.ID);
+                sqlCmd.Parameters.AddWithValue("@year", year);
+                object result = sqlCmd.ExecuteScalar();
+                if(result !=  null)
                 {
-                    this.Value = Decimal.Parse(myReader["value"].ToString());
+                    calculated.Value = Convert.ToDecimal(result);
+                    System.Diagnostics.Trace.WriteLine("........ratio value" + calculated.Value);
                 }
 
                 sqlConn.Close();
             }
             catch (Exception e) { Console.WriteLine(e.ToString()); }
-            
-            //this.Value = calculated ratio 
+            return calculated;
         }
 
         public static List<CalculatedRatio> GetCalculatedRatios(Ratio ratio, Company company)
@@ -49,7 +64,7 @@ namespace cpamvc.Models
 
             //get the most recent years, up to 4
 
-            List<int> years = null;
+            List<int> years = new List<int>();
 
             SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
 
@@ -64,17 +79,18 @@ namespace cpamvc.Models
                 while (myReader.Read())
                 {
                     years.Add(Int32.Parse(myReader["year"].ToString()));
+                    System.Diagnostics.Trace.WriteLine("......Year for " + company.ID + " " + Int32.Parse(myReader["year"].ToString()));
                 }
 
                 sqlConn.Close();
             }
             catch (Exception e) { Console.WriteLine(e.ToString()); }
 
-            List<CalculatedRatio> ratios = null;
+            List<CalculatedRatio> ratios = new List<CalculatedRatio>();
 
             foreach (int year in years)
             {
-                ratios.Add(new CalculatedRatio(ratio, company, year));
+                ratios.Add(GetCalculatedRatio(ratio, company, year));
             }
 
             return ratios;
