@@ -104,4 +104,18 @@ function loadGraph(calculatedRatios) {
             }
         }
     });
+} 
+
+var articles = document.querySelectorAll(".chooseArticle");
+for (var i = 0; i < articles.length; i++) {
+    articles[i].addEventListener('click', selectArticle, false);
+}
+
+function selectArticle(event) {
+    event.preventDefault();
+    var body = event.currentTarget.querySelector("span");
+    body = body.innerHTML;
+    document.getElementById("selectedBody").innerHTML = body;
+    document.getElementById("selectedTitle").innerHTML = event.currentTarget.querySelector("p").innerHTML;
+    return false;
 }

@@ -101,7 +101,35 @@ namespace cpamvc.Models
         public static List<Article> getArticles(int companyID)
         {
             //given company id, return all articles
-            return null;
+            List<Article> articles = new List<Article>();
+            try
+            {
+                sqlConn.Open();
+                SqlDataReader myReader = null;
+                SqlCommand sqlCmd = new SqlCommand("SELECT id, company_id, source, date, url, text, " +
+                    "title FROM article WHERE company_id = @id", sqlConn);
+                sqlCmd.Parameters.AddWithValue("@id", companyID);
+                myReader = sqlCmd.ExecuteReader();
+                while (myReader.Read())
+                {
+                    articles.Add(new Article
+                    {
+                        ID = (Int32.Parse(myReader["id"].ToString())),
+                        Title = myReader["title"].ToString(),
+                        Body = myReader["text"].ToString(),
+                        Source = myReader["source"].ToString(),
+                        CompanyID = Int32.Parse(myReader["company_id"].ToString()),
+                        Date = DateTime.Parse(myReader["date"].ToString())
+                    });
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return articles;
         }
         public static List<Article> getArticles(int companyID, int ratioID)
         {

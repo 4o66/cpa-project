@@ -34,6 +34,8 @@ namespace cpamvc.Controllers
             ViewData["currentCompany"] = currentCompany;
             ViewData["companies"] = companies;
             ViewData["ratios"] = ratios;
+            ViewData["articles"] = Article.getArticles(currentCompany.ID);
+            
             return View();
         }
 

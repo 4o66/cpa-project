@@ -103,7 +103,7 @@
                         <tr>
                             
                             <th></th>
-                            @foreach(Statement statement in statementsList)
+                            @foreach (Statement statement in statementsList)
                             {
                                 <th scope="col">@statement.Year</th>
 
@@ -112,19 +112,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for(var i = 0; i < statementsList[0].Details.Count; i++)
+                        
+                        @for (var i = 0; i < statementsList[0].Details.Count; i++)
                         {
-                            
+
                             <tr>
                             <th scope="row">@statementsList[0].Details[i].Name</th>
-                            @foreach(Statement statement in statementsList)
+                            @foreach (Statement statement in statementsList)
                             {
                                 if (!(i >= statement.Details.Count))
                                 {
 
                                     var value = statement.Details[i].Value;
-                                    var label = (value > 1000) ? "$ " + @String.Format("{0:n0}", value/1000) : "$" + @String.Format("{0:n0}", value);
-                                    if (value <= -1000) label = "$(" + @String.Format("{0:n0}", value / -1000) + ")";
+                                    var label = (value > 1000) ? "$ " + @String.Format("{0:n0}", value / 1000) : "$" + @String.Format("{0:.##}", value);
+                                    if((double)value <= 0.01) {
+                                        label = (value < -1000) ? "$(" + @String.Format("{0:n0}", value / -1000) + ")" : "$(" + @String.Format("{0:.##}", -value) + ")"; 
+                                      }          
+
                                 <td>@label</td> 
                                 }
 
@@ -132,6 +136,7 @@
                             </tr>
                         }
                         
+
                     </tbody>
 
                 </table>
