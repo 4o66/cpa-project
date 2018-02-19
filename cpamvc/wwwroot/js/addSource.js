@@ -5,7 +5,7 @@ document.getElementById('submitArticle').addEventListener('click', sendArticle);
 function sendArticle() {
     if (articleIsFilled()) {
         var article = getArticle();
-        postArticle(article);
+        postArticle(article);//sdfsd
     }
 }
 
