@@ -52,7 +52,7 @@ namespace cpamvc.Models
                             Body = myReader["text"].ToString(),
                             Source = myReader["source"].ToString(),
                             CompanyID = Int32.Parse(myReader["company_id"].ToString()),
-                            Date = DateTime.Parse(myReader["date"].ToString())
+                            Date = DateTime.Parse(myReader["date"].ToString()).Date
                         };
                     }
                     sqlConn.Close();
@@ -85,7 +85,7 @@ namespace cpamvc.Models
                         Body = myReader["text"].ToString(),
                         Source = myReader["source"].ToString(),
                         CompanyID = Int32.Parse(myReader["company_id"].ToString()),
-                        Date = DateTime.Parse(myReader["date"].ToString())
+                        Date = DateTime.Parse(myReader["date"].ToString()).Date
                     });
                 }
 
@@ -119,7 +119,7 @@ namespace cpamvc.Models
                         Body = myReader["text"].ToString(),
                         Source = myReader["source"].ToString(),
                         CompanyID = Int32.Parse(myReader["company_id"].ToString()),
-                        Date = DateTime.Parse(myReader["date"].ToString())
+                        Date = DateTime.Parse(myReader["date"].ToString()).Date
                     });
                 }
 

@@ -200,14 +200,17 @@
                     <div class="scroll-box card">
                         @foreach(Article article in articles)
                         {
-                            <a href="#" role="button" class="chooseArticle list-group-item list-group-item-action flex-column align-items-start">
+                        <a href="#" role="button" class="chooseArticle list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <p class="mb-1">@article.Title</p>
-                                <small>@article.Date</small>
                             </div>
-                            <small>@article.Source</small>
-                            <span class="articleBody" style="display: none;">@article.Body</span>
-                            </a>
+                            <div class="d-flex w-100 justify-content-between">
+                                <small>@article.Source</small>
+                                <small>@article.Date.ToShortDateString()</small>
+                            </div>
+
+                                <span class="articleBody" style="display: none;">@article.Body</span>
+                        </a>
 
                         }
                         

@@ -1,7 +1,7 @@
 ﻿// Write your JavaScript code.
 function updateCustomDescription() {
-    $('.customRatioTop').text(getOptionsString('sbNum'));
-    $('.customRatioBottom').text(getOptionsString('sbDem'));
+    document.querySelector('.customRatioTop').innerHTML = getOptionsString('sbNum');
+    document.querySelector('.customRatioBottom').innerHTML = getOptionsString('sbDem');
 }
 
 function getOptionsString(selectID) {

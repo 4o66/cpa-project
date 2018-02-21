@@ -20,6 +20,24 @@
     border-radius: 5px;
     color: white;
 }
+@media screen and (max-width: 600px) {
+    .statement-table td:nth-of-type(2),
+    .statement-table td:nth-of-type(1),
+    .statement-table th:nth-of-type(2),
+    .statement-table th:nth-of-type(3) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .statement-table td:nth-of-type(3),
+    .statement-table th:nth-of-type(4) {
+        display: none;
+    }
+}
+.navbar-brand {
+    white-space: normal !important;
+}
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
@@ -145,6 +163,7 @@ div.align-self-center {
 .title-card,
 .graph-card {
     width: 50%;
+    min-width: 200px;
     margin-top: -20px;
     border-radius: 20rem;
     background-color: #0099CC !important;
