@@ -64,7 +64,7 @@ namespace cpamvc.Models
                 sqlConn.Close();
             }
             catch (Exception e){Console.WriteLine(e.ToString());}
-            return companies;
+            return companies.OrderBy(c => c.Name).ToList();
         }
         public static Company GetCompany(int id)
         {

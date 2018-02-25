@@ -61,6 +61,21 @@ option {
     border: 0 !important;
 }
 
+.formula-row {
+    display: flex;
+    flex-flow: column;
+}
+.formula-row .row:nth-child(2) {
+    flex: 2;
+}
+    .formula-row .row:nth-child(2)>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .formula-row .row:nth-child(2) hr {
+        width: 100%
+    }
 
 .table .thead-dark th {
     background-color: #3f5c80 !important;

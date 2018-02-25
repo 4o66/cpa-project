@@ -25,7 +25,7 @@ namespace cpamvc.Controllers
             
             int rows = Ratio.AddRatio(ratio);
 
-            if (rows == -1)
+            if (rows <  1)
                 return NotFound();
             return Ok();
         }

@@ -70,7 +70,7 @@ namespace cpamvc.Models
             {
                 System.Diagnostics.Trace.Write(e.ToString());
             }
-            return ratioList;
+            return ratioList.OrderBy(r => r.Name).ToList();
 
         }
         public static Ratio GetRatio(int id)
