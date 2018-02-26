@@ -93,7 +93,7 @@ namespace cpamvc.Models
                 ratios.Add(GetCalculatedRatio(ratio, company, year));
             }
 
-            return ratios;
+            return ratios.OrderBy(r => r.Year).ToList();
         }
     }
 }

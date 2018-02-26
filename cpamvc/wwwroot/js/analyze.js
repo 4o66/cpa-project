@@ -42,6 +42,7 @@ function loadGraph(calculatedRatios) {
     var years = [];
     var values = [];
     console.log(calculatedRatios);
+    
     calculatedRatios.forEach((e) => {
         console.log(e);
         years.push(e['year']);

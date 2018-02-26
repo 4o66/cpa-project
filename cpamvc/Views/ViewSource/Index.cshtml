@@ -2,8 +2,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var articles = (List<Article>)ViewData["articles"];
+    List<Article> articles = (List<Article>)ViewData["articles"];
+    List<Company> companies = (List<Company>)ViewData["companies"];
+    int sortBy = (int)ViewData["sortBy"];
     var selected = (Article)ViewData["selectedArticle"];
+    int selectedCompany = (int)ViewData["selectedCompany"];
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-0 mb-0">
     <div class="container">
@@ -32,23 +35,56 @@
 
                 <div class="col-md-4 px-5">
 
-                    <p class="h4 mb-4">Select an Article</p>
+                    <p class="h4 mb-2">Select an Article</p>
+                    <label for="sortByCompany">
+                        Company
+                    </label>
+                    <select id="sortByCompany" class="form-control">
+                        <option value="0">Any</option>
+                        @foreach (Company c in companies)
+                        {
+                            if (selectedCompany == c.ID)
+                            { <option selected value="@c.ID">@c.Name</option> }
+                            else
+                            {<option value="@c.ID">@c.Name</option> 
+                            }
+                        }
+                    </select>
+
+                    <label for="sortByOption">
+                        Sort By
+                    </label>
+                    <select id="sortByOption" class="form-control mb-2">
+@{
+    if (sortBy == 0)
+    {
+                    <option selected value="0">Title</option><option value="1">Date</option>
+    }
+    else {
+                        <option value="0">Title</option>
+                        <option selected value="1">Date</option>
+        }
+    }
+
+                
+                    </select>
+
                     <div class="scroll-box">
                         @foreach (var article in articles)
-                            {
-                            <a asp-controller="ViewSource" asp-action="Index" asp-route-id=@article.ID class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <p class="mb-1">@article.Title</p>
-                                </div>
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small>@article.Source</small>
+        {
+                <a href="/ViewSource?id=@article.ID&company_id=@selectedCompany&sortBy=@sortBy" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1">@article.Title</p>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <small>@article.Source</small>
 
-                                    <small>@article.Date.ToShortDateString()</small>
+                        <small>@article.Date.ToShortDateString()</small>
 
-                                </div>
-                            </a>
+                    </div>
+                </a>
 
-                            }
+}
                     </div>
                 </div>
                 <div class="col-md-8 px-5">
@@ -65,3 +101,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script src="~/js/viewSource.js"></script>
+}

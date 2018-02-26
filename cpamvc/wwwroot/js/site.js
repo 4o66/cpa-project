@@ -59,60 +59,70 @@ $('#removeAll').on('click', function () {
 $('#save-ratio').on('click', submitRatio);
 
 function submitRatio() {
-    let type = document.querySelector('input[name="ratio-type"]:checked').value;
-    let numList = document.querySelectorAll('#sbNum option');
-    let numObjList = [];
-    Array.from(numList, (ele, index) => {
-        let innerText = ele.innerHTML;
-        let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
-        let obj = {
-            'id': ele.value,
-            'operator': operator,
-            'order': index
-        };
-        numObjList.push(obj);
-    });
-    let denomiatorList = document.querySelectorAll('#sbDem option');
-    let denominatorObjList = [];
-    Array.from(denomiatorList, (ele, index) => {
-        let innerText = ele.innerHTML;
-        let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
-        let obj = {
-            'id': ele.value,
-            'operator': operator,
-            'order': index
-        };
-        denominatorObjList.push(obj);
-    });
-    let ratioName = document.getElementById('ratio-name-input').value;
-    let ratioObj = {
-        
+    try {
+        let type = document.querySelector('input[name="ratio-type"]:checked').value;
+        let numList = document.querySelectorAll('#sbNum option');
+        let numObjList = [];
+        Array.from(numList, (ele, index) => {
+            let innerText = ele.innerHTML;
+            let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
+            let obj = {
+                'id': ele.value,
+                'operator': operator,
+                'order': index
+            };
+            numObjList.push(obj);
+        });
+        let denomiatorList = document.querySelectorAll('#sbDem option');
+        let denominatorObjList = [];
+        Array.from(denomiatorList, (ele, index) => {
+            let innerText = ele.innerHTML;
+            let operator = (innerText.indexOf("+") > -1) ? '+' : '-';
+            let obj = {
+                'id': ele.value,
+                'operator': operator,
+                'order': index
+            };
+            denominatorObjList.push(obj);
+        });
+        let ratioName = document.getElementById('ratio-name-input').value;
+        let ratioObj = {
+
             'name': ratioName,
             'numerator': numObjList,
             'denominator': denominatorObjList,
             'type': type
-        
-    }
-    console.log(ratioObj);
 
-    var url = 'RatioConstruction/AddRatio';
-    var data = ratioObj;
+        }
+        console.log(ratioObj);
 
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(ratioObj),
-        headers: new Headers({
-            'Content-Type': 'application/json'
+        var url = 'RatioConstruction/AddRatio';
+        var data = ratioObj;
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(ratioObj),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(res => {
+            if (res.ok)
+                showSuccessModal();
+            else
+                showFailureModal("Ratio has already been added or is otherwise invalid");
         })
-    }).then(res => res.ok)
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-            showSuccessModal();
-            console.log('Success')
-        });
+            .catch(error => { console.error('Error:', error); showFailureModal(error) })
+    }
+    catch (error) {
+        showFailureModal("Please enter in all values and try again.")
+    }
     //TODO HANDLE NULL INPUT
 }
 
 function showSuccessModal() {
     $('#success-modal').modal('toggle');
+}
+function showFailureModal(error) {
+    $('#failure-modal').modal('toggle');
+    $('#errorText').text(error);
 }

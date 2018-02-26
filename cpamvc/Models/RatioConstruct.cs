@@ -63,7 +63,7 @@ namespace cpamvc.Models
                 sqlConn.Close();
             }
             catch (Exception e) { Console.WriteLine(e.ToString()); }
-            return list;
+            return list.OrderBy(c => c.Name).ToList();
         }
 
         public static string GetRatioConstructName(int id)
