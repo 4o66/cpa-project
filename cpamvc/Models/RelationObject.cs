@@ -37,10 +37,8 @@ namespace cpamvc.Models
                 {
                     RelationObject newObject = new RelationObject
                     {
-                        Type = Int32.Parse(myReader["id"].ToString()),
                         Name = myReader["name"].ToString(),
-                        Plural = myReader["plural"].ToString(),
-                        Abreviation = myReader["abreviation"].ToString()
+                        Plural = myReader["plural"].ToString()
                     };
                     objectList.Add(newObject);
                 }
@@ -77,5 +75,7 @@ namespace cpamvc.Models
             catch (Exception e) { Console.WriteLine(e.ToString()); }
             return rows;
         }
+
+        
     }
 }

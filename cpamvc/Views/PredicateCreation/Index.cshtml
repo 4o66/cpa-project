@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<RelationObject> objects = (List<RelationObject>)ViewData["objects"];
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-5 mb-0">
     <div class="container">
@@ -20,15 +21,7 @@
                 </div> -->
             </div>
             <div class="col-sm-5 d-flex">
-                <div class="align-self-center">
-                    <div id="search-bar">
-                        <div class="input-group">
-                            <input class="form-control input-lg" type="search" placeholder="Search Companies" aria-label="Search">
-                            <button class="btn btn-info" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>
-                    </div>
 
-                </div>
             </div>
         </div>
 
@@ -53,42 +46,64 @@
             <div class="row px-5 pt-4">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <form action="">
+                    <form id="predicate-form" name="predicate-form" action="">
                         <div class="form-group">
-                            <label for="object-a">Object A</label>
-                            <input type="text" name="object-a" class="form-control">
+
+                            <label for="object-a">
+                                Object A
+                            </label>
+                            <select name="object-a" id="object-a" class="form-control">
+
+                                @foreach (RelationObject o in objects)
+                                {
+
+                                    <option value="@o.Name">@o.Name</option>
+
+                                }
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="object-b">Object B</label>
-                            <input type="text" name="object-b" class="form-control">
+                            <label for="object-b">
+                                Object B
+                            </label>
+                            <select name="object-b" id="object-b" class="form-control">
+
+                                @foreach (RelationObject o in objects)
+                                {
+
+                                    <option value="@o.Name">@o.Name</option>
+
+                                }
+                            </select>
                         </div>
                         <div class="form-group">
                             <div><label for="">Object Type</label></div>
                             <div class="card w-100 p-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="attribute" value="attribute" checked>
+                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="attribute" value="isa" checked>
                                     <label class="form-check-label" for="attribute">
                                         Attribute (is a)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="association" value="association">
+                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="association" value="isp">
                                     <label class="form-check-label" for="association">
                                         Association (is part of)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="casuality" value="casuality">
+                                    <input class="form-check-input" type="radio" name="predicate-type-radio" id="casuality" value="isc">
                                     <label class="form-check-label" for="casuality">
                                         Casuality (is caused by)
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Save Predicate</button>
-                        </div>
+
                     </form>
+                    <div class="form-group">
+                        <button id="save-predicate-button" class="btn btn-primary">Save Predicate</button>
+                    </div>
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -97,3 +112,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/addPredicate.js" asp-append-version="true"></script>
+}

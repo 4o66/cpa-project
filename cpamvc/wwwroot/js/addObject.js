@@ -32,7 +32,7 @@ function objectIsFilled() {
 
 function postObject(newObject) {
     console.log(newObject);
-    var url = 'ObjectCreation/AddObject';
+    var url = './ObjectCreation/AddObject';
 
 
     fetch(url, {
