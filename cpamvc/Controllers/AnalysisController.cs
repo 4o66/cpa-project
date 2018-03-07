@@ -29,12 +29,24 @@ namespace cpamvc.Controllers
             }
             List<CalculatedRatio> calculatedRatios = CalculatedRatio.GetCalculatedRatios(currentRatio, currentCompany);
             ViewData["calculatedRatios"] = calculatedRatios;
-           
+            List<Article> articles = Article.GetArticleByRatio(currentRatio, currentCompany);
+            if (articles.Count < 1)
+            {
+                Article blankArticle = new Article()
+                {
+                    Title = "No articles for this ratio.",
+                    Body = "None",
+                    Date = DateTime.Now,
+                    Source = "none"
+                };
+                articles = new List<Article>();
+                articles.Add(blankArticle);
+            }
             ViewData["currentRatio"] = currentRatio;
             ViewData["currentCompany"] = currentCompany;
             ViewData["companies"] = companies;
             ViewData["ratios"] = ratios;
-            ViewData["articles"] = Article.getArticles(currentCompany.ID);
+            ViewData["articles"] = articles; //Article.GetArticleByRatio(currentRatio, currentCompany);
             
             return View();
         }

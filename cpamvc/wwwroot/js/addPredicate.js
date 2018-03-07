@@ -5,7 +5,7 @@ document.getElementById('save-predicate-button').addEventListener('click', sendP
 function sendPredicate() {
     
         let newPredicate = getPredicate();
-        postPredicate(newPredicate);//sdfsd
+        postPredicate(newPredicate);
     
 }
 

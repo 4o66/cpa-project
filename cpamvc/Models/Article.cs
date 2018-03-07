@@ -163,6 +163,41 @@ namespace cpamvc.Models
 
             return rows;
         }
+
+        public static List<Article> GetArticleByRatio(Ratio ratio, Company company)
+        {
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            List<Article> articles = new List<Article>();
+
+            try
+            {
+                sqlConn.Open();
+
+                SqlCommand sqlCmd = new SqlCommand("search_type2", sqlConn);
+                sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@companyID", company.ID);
+                sqlCmd.Parameters.AddWithValue("@ratioID", ratio.ID);
+                SqlDataReader reader = sqlCmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    Article article = new Article
+                    {
+                        ID = int.Parse(reader["id"].ToString()),
+                        Source = reader["source"].ToString(),
+                        Body = reader["text"].ToString(),
+                        URL = reader["url"].ToString(),
+                        Date = DateTime.Parse(reader["date"].ToString()).Date,
+                        Title = reader["title"].ToString()
+                    };
+                    System.Diagnostics.Trace.WriteLine("........" + article.Title);
+                    articles.Add(article);
+                }
+
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return articles;
+        }
        
 
            
