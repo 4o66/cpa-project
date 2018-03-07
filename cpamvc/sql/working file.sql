@@ -1,11 +1,23 @@
-declare @name varchar(max)
+alter procedure search_type2
+	@ratioID int, @companyID int
+
+as
+begin
+
+declare @name varchar(60)
 declare @maxdepth int
 declare @perms table (term varchar(max))
 declare @match table (type int, name varchar(max))
 declare @terms table (id int not null identity(1,1), term varchar(30))
+declare @articles table (id int, source nvarchar(max), [date] date, url nvarchar(max), text nvarchar(max), title nvarchar(max))
 
 declare term_cursor cursor for
-select lower(name) from ratio_construct --where id <= 25
+select lower(name) from ratio_construct
+where id in (
+	select rc.id from ratio_construct rc
+	join ratio_detail rd on rc.id = rd.ratio_construct_id
+	where rd.ratio_id = @ratioID
+)
 
 open term_cursor
 fetch next from term_cursor into @name
@@ -53,7 +65,7 @@ begin
 		end
 
 	insert into @match
-	select distinct type, name
+	select distinct type, concat('"', name, '"') as [name]
 	from object
 	inner join @perms p on object.name like p.term
 	and name not in (select name from @match)
@@ -66,11 +78,30 @@ end
 close term_cursor
 deallocate term_cursor
 
-select * from @match
+declare name_cursor cursor for
+select distinct name from @match
 
+open name_cursor
+fetch next from name_cursor into @name
 
+while @@FETCH_STATUS = 0
+begin
+	insert into @articles
+	select id, source, [date], url, text, title
+	from article
+	where contains ((text, title), @name) and
+		company_id = @companyID and
+		id not in (select id from @articles)
 
+	fetch next from name_cursor into @name
+end
 
+close name_cursor
+deallocate name_cursor
+
+select * from @articles
+
+end
 
 
 
