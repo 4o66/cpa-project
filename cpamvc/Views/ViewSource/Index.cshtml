@@ -72,7 +72,7 @@
                     <div class="scroll-box">
                         @foreach (var article in articles)
         {
-                <a href="/ViewSource?id=@article.ID&company_id=@selectedCompany&sortBy=@sortBy" class="list-group-item list-group-item-action flex-column align-items-start">
+                <a href="./ViewSource?id=@article.ID&company_id=@selectedCompany&sortBy=@sortBy" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">@article.Title</p>
                     </div>
@@ -102,5 +102,5 @@
     </div>
 </div>
 @section Scripts {
-    <script src="~/js/viewSource.js"></script>
+    <script asp-append-version="true" src="~/js/viewSource.js"></script>
 }

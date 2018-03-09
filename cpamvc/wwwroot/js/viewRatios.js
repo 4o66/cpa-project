@@ -5,3 +5,16 @@ selectRatio.addEventListener('change', () => {
         : '/ViewRatios?ratio_id=' + id;
     window.location.href = url;
 });
+
+function deleteRatio(id) {
+    return fetch(`./ViewRatios/DeleteRatio?id=${id}`, {
+        method: 'delete'
+    }).then(response => {
+        if (response.status == 200) {
+            alert("Successfully Deleted");
+            window.location.replace("./ViewRatios")
+        }
+        else
+            alert("Ratio was not deleted. Error: " + response);
+    });
+}

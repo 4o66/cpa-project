@@ -9,6 +9,7 @@
     Company currentCompany = (Company)ViewData["currentCompany"];
     List<Article> articles = (List<Article>)ViewData["articles"];
     Article selectedArticle = (Article)articles[0];
+    string articleSort = (string)ViewData["articleSort"];
     var isZero = false;
 }
 <div class="container-fluid bg-dark text-light pt-5 pb-0 mb-0">
@@ -139,7 +140,7 @@
 
                             </tbody>
                         </table>
-                        @if(isZero){
+                        @if (isZero) {
                             <p style="color:red;">No ratio value. @currentCompany.Name may not have data for these values.</p>
                         }
                     </div>
@@ -177,6 +178,17 @@
                 <div class="col-md-4 pl-1 pr-3">
 
                     <p class="h4">Select Article</p>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Articles related to:</h5>
+                            <div class="row">
+                                <div class="col">
+                                <button onclick="filterArticles('ratio')" class="@("btn mr-1 " + (articleSort == "ratio" ? "btn-primary" : "btn-default"))">Ratio</button>
+                                <button onclick="filterArticles('company')" class="@("btn mr-1 " + (articleSort == "company" ? "btn-primary" : "btn-default"))">Company</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="scroll-box card">
                         @foreach(Article article in articles)
                         {
@@ -213,5 +225,6 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js" integrity="sha256-vyehT44mCOPZg7SbqfOZ0HNYXjPKgBCaqxBkW3lh6bg=" crossorigin="anonymous"></script>
     <script asp-append-version="true" src="~/js/analyze.js"></script>
-
+   
+   
 }

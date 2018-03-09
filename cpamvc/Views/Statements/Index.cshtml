@@ -75,6 +75,7 @@
                         <span class="h3">@currentStatement for @currentCompanyName</span> <span>  (values in 000's)</span>
                     </div>
                 </div>
+                @if (statementsList.Count > 1) {
                 <table class="table statement-table">
                     <thead>
                         <tr>
@@ -102,9 +103,9 @@
 
                                     var value = statement.Details[i].Value;
                                     var label = (value > 1000) ? "$ " + @String.Format("{0:n0}", value / 1000) : "$" + @String.Format("{0:.##}", value);
-                                    if((double)value <= 0.01) {
-                                        label = (value < -1000) ? "$(" + @String.Format("{0:n0}", value / -1000) + ")" : "$(" + @String.Format("{0:.##}", -value) + ")"; 
-                                      }          
+                                    if ((double)value <= 0.01) {
+                                        label = (value < -1000) ? "$(" + @String.Format("{0:n0}", value / -1000) + ")" : "$(" + @String.Format("{0:.##}", -value) + ")";
+                                    }
 
                                 <td>@label</td> 
                                 }
@@ -117,6 +118,7 @@
                     </tbody>
 
                 </table>
+                }
             </div>
 
         </div>

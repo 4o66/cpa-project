@@ -27,7 +27,7 @@ namespace cpamvc.Controllers
             {
                 article = Article.getArticleById(id);
             }
-            articles =(sortBy == 0) ? articles.OrderBy(o => o.Title).ToList() : articles.OrderBy(a => a.Date).ToList();
+            articles = (sortBy == 0) ? articles.OrderBy(o => o.Title).ToList() : articles.OrderBy(a => a.Date).ToList();
             ViewData["companies"] = Company.getCompanies().OrderBy(o => o.Name).ToList();
             ViewData["selectedArticle"] = article;
             ViewData["articles"] = articles;

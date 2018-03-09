@@ -9,6 +9,8 @@ namespace cpamvc.Models
 {
     public class Predicate
     {
+        private static SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+
         [JsonProperty("object-a")]
         public string ObjectA {get; set;}
         [JsonProperty("object-b")]
@@ -51,6 +53,88 @@ namespace cpamvc.Models
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.ToString()); }
             return rows;
+        }
+
+        public static List<Predicate> FindIsA(RelationObject obj)
+        {
+            List<Predicate> predicates = new List<Predicate>();
+            try
+            {
+                sqlConn.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT obj_a, obj_b FROM isa WHERE obj_a = @obj", sqlConn);
+                sqlCommand.Parameters.AddWithValue("@obj", obj.Name);
+                SqlDataReader myReader = sqlCommand.ExecuteReader();
+                while(myReader.Read())
+                {
+                    Predicate predicate = new Predicate
+                    {
+                        ObjectA = myReader["obj_a"].ToString(),
+                        ObjectB = myReader["obj_b"].ToString()
+                    };
+
+                    predicates.Add(predicate);
+                }
+                sqlConn.Close();
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.ToString()); }
+            
+
+
+            return predicates;
+        }
+        public static List<Predicate> FindIsC(RelationObject obj)
+        {
+            List<Predicate> predicates = new List<Predicate>();
+            try
+            {
+                sqlConn.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT obj_a, obj_b FROM isc WHERE obj_a = @obj", sqlConn);
+                sqlCommand.Parameters.AddWithValue("@obj", obj.Name);
+                SqlDataReader myReader = sqlCommand.ExecuteReader();
+                while (myReader.Read())
+                {
+                    Predicate predicate = new Predicate
+                    {
+                        ObjectA = myReader["obj_a"].ToString(),
+                        ObjectB = myReader["obj_b"].ToString()
+                    };
+
+                    predicates.Add(predicate);
+                }
+                sqlConn.Close();
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.ToString()); }
+
+
+
+            return predicates;
+        }
+        public static List<Predicate> FindIsP(RelationObject obj)
+        {
+            List<Predicate> predicates = new List<Predicate>();
+            try
+            {
+                sqlConn.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT obj_a, obj_b FROM isp WHERE obj_a = @obj", sqlConn);
+                sqlCommand.Parameters.AddWithValue("@obj", obj.Name);
+                SqlDataReader myReader = sqlCommand.ExecuteReader();
+                while (myReader.Read())
+                {
+                    Predicate predicate = new Predicate
+                    {
+                        ObjectA = myReader["obj_a"].ToString(),
+                        ObjectB = myReader["obj_b"].ToString()
+                    };
+
+                    predicates.Add(predicate);
+                }
+                sqlConn.Close();
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.ToString()); }
+
+
+
+            return predicates;
         }
     }
 }
