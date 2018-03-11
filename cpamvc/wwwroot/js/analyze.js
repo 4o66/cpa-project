@@ -8,6 +8,11 @@ button.addEventListener('click', () => {
         "&ratio_id=" + ratio);
 });
 
+function filterArticles(by) {
+    window.location.replace("Analysis?company_id=" + company +
+        "&ratio_id=" + ratio + "&articleFilter=" + by);
+}
+
 companySelect.addEventListener('change', () => {
     company = companySelect.options[companySelect.selectedIndex].value;
     console.log(company);

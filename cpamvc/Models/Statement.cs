@@ -109,13 +109,22 @@ namespace cpamvc.Models
         {
             int rows = -1;
             //Get company id
+            if(Company.GetCompanyID(statement) == -1)
+            {
+                //add company
+                Company.AddCompany(statement.Company);
+            }
             int cID = Company.GetCompanyID(statement);
             statement.Company.ID = cID;
-            System.Diagnostics.Trace.WriteLine("current company ID: " + cID);
 
             //Get statement id given company id and year
             int statementID = GetStatementID(statement);
-            System.Diagnostics.Trace.WriteLine("current statement ID: " + statementID);
+            if (statementID == -1)
+            {
+                //addStatement
+                AddStatementReference(statement.Name, cID, statement.Year);
+                statementID = GetStatementID(statement);
+            }
             int line = 0; //to set "line" value in details table
             //Start adding lines
             foreach (RatioConstruct c in statement.Details)
@@ -136,6 +145,28 @@ namespace cpamvc.Models
             }
             return rows;
         }
+
+        public static int AddStatementReference(String type, int companyID, int year)
+        {
+            //adds statement to statement table IE Apple's 2017 balance sheet. To add details use above method
+            int rows = -1;
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            try
+            {
+                sqlConn.Open();
+                string commandText = "INSERT INTO statement (name, year, quarter, company_id) " +
+                    "VALUES (@name, @year, 0, @cID)";
+                SqlCommand sqlCmd = new SqlCommand(commandText, sqlConn);
+                sqlCmd.Parameters.AddWithValue("@name", type);
+                sqlCmd.Parameters.AddWithValue("@year", year );
+                sqlCmd.Parameters.AddWithValue("@cID", companyID);
+                rows = sqlCmd.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return rows;
+        }
+
 
         public static int AddStatementLine(RatioConstruct construct, int statementID)
         {

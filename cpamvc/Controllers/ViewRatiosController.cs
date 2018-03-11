@@ -25,5 +25,19 @@ namespace cpamvc.Controllers
             ViewData["ratio-list"] = ratios;
             return View();
         }
+
+        [HttpDelete]
+        public IActionResult DeleteRatio(int id)
+        {
+            System.Diagnostics.Trace.WriteLine("................ ratio id: " + id);
+            int rows = Ratio.DeleteRatio(id);
+            if (rows > 0)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
+
+
 }

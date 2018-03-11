@@ -8,10 +8,10 @@ function getToken() {
     return hash;
 }
 
-function loadConstructs(statementName) {
+function loadConstructs(statementName, ticker) {
     var hash = getToken();
     var req = new XMLHttpRequest();
-    req.open('GET', 'https://api.intrinio.com/tags/standardized?statement=' + statementName, true);
+    req.open('GET', 'https://api.intrinio.com/tags/standardized?identifier=' + ticker + '&statement=' + statementName, true);
     req.setRequestHeader("Authorization", "Basic " + hash);
     req.send();
     //Send data to add constructs post in order to load to db
@@ -19,7 +19,7 @@ function loadConstructs(statementName) {
         if (req.readyState == 4) {
             var response = JSON.parse(req.responseText);
             console.log(response);
-            var url = 'LoadData/AddConstructs';
+            var url = './LoadData/AddConstructs';
             var data = response.data;
             var constructs = [];
             data.forEach(function (ele) {
@@ -34,7 +34,7 @@ function loadConstructs(statementName) {
      }
 }
 
-function loadStatement(statementName, ticker, year) {
+function loadStatement(statementName, companyName, ticker, year) {
     var hash = getToken();
     var req = new XMLHttpRequest();
     console.log(year);
@@ -50,7 +50,8 @@ function loadStatement(statementName, ticker, year) {
             var statement = response.data;
             var statementObj = {
                 'company': {
-                    'symbol': ticker
+                    'symbol': ticker,
+                    'name': companyName
                 },
                 'name': statementName,
                 'statement-details': statement,
@@ -75,30 +76,27 @@ function loadToDb(url, statementObj) {
         .then(response => console.log('Success'));
 }
 
-//loadStatement('income_statement', 'AAPL', 2017);
-//loadStatement('income_statement', 'AAPL', 2016);
-//loadStatement('income_statement', 'AAPL', 2015);
-//loadStatement('income_statement', 'AAPL', 2014);
-//loadStatement('balance_sheet', 'AAPL', 2017);
-//loadStatement('balance_sheet', 'AAPL', 2016);
-//loadStatement('balance_sheet', 'AAPL', 2015);
-//loadStatement('balance_sheet', 'AAPL', 2014);
-//loadStatement('income_statement', 'AMZN', 2017);
-//loadStatement('income_statement', 'AMZN', 2016);
-//loadStatement('income_statement', 'AMZN', 2015);
-//loadStatement('income_statement', 'AMZN', 2014);
-//loadStatement('balance_sheet', 'AMZN', 2017);
-//loadStatement('balance_sheet', 'AMZN', 2016);
-//loadStatement('balance_sheet', 'AMZN', 2015);
-//loadStatement('balance_sheet', 'AMZN', 2014);
-//loadStatement('income_statement', 'COST', 2017);
-//loadStatement('income_statement', 'COST', 2016);
-//loadStatement('income_statement', 'COST', 2015);
-//loadStatement('income_statement', 'COST', 2014);
-//loadStatement('balance_sheet', 'COST', 2017);
-//loadStatement('balance_sheet', 'COST', 2016);
-//loadStatement('balance_sheet', 'COST', 2015);
-//loadStatement('balance_sheet', 'COST', 2014);
 
+
+/*******       INSTRUCTIONS
+    
+                To add a Company and its financial statements, uncomment the
+                lines below, and replace 'MU' with the
+                company's ticker, and 'Micron' with the company's name. Then run
+                the application and go to /LoadConstructs and wait a few minutes while they load.
+                You may need to replace the credentials up top if they expire. If they do, register for
+                a free trial at Intrinio.com and replace them with your new credentials                   *********/
+    
+
+//loadConstructs('balance_sheet', 'MU');
+//loadConstructs('income_statement', 'MU');
+//loadStatement('income_statement', 'Micron', 'MU', 2017);
+//loadStatement('income_statement', 'Micron','MU', 2016);
+//loadStatement('income_statement', 'Micron', 'MU', 2015);
+//loadStatement('income_statement', 'Micron', 'MU', 2014);
+//loadStatement('balance_sheet', 'Micron' , 'MU', 2017);
+//loadStatement('balance_sheet','Micron', 'MU', 2016);
+//loadStatement('balance_sheet', 'Micron', 'MU', 2015);
+//loadStatement('balance_sheet', 'Micron', 'MU', 2014);
 
 console.log("finished");

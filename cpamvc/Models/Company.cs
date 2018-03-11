@@ -43,6 +43,26 @@ namespace cpamvc.Models
             this.Symbol = Symbol;
         }
 
+        public static int AddCompany(Company company)
+        {
+            int rows = -1;
+            SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+            try
+            {
+                sqlConn.Open();
+                string commandText = "INSERT INTO company" +
+                    " (name, market, symbol) " +
+                    "VALUES (@name, 'NASD', @ticker)";
+                SqlCommand sqlCmd = new SqlCommand(commandText, sqlConn);
+                sqlCmd.Parameters.AddWithValue("@name", company.Name);
+                sqlCmd.Parameters.AddWithValue("@ticker", company.Symbol);
+                rows = sqlCmd.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            return rows;
+        }
+
         public static List<Company> getCompanies()
         {
             //Gets all companies -- works

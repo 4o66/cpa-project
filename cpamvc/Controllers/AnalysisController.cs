@@ -12,9 +12,8 @@ namespace cpamvc.Controllers
     public class AnalysisController : Controller
     {
         // GET: /<controller>/
-        public IActionResult Index(int ratio_id = -1, int company_id = -1)
+        public IActionResult Index(int ratio_id = -1, int company_id = -1, string articleFilter = "ratio")
         {
-
             List<Company> companies = Company.getCompanies();
             List<Ratio> ratios = Ratio.GetRatios();
             Ratio currentRatio = ratios[0];
@@ -29,7 +28,12 @@ namespace cpamvc.Controllers
             }
             List<CalculatedRatio> calculatedRatios = CalculatedRatio.GetCalculatedRatios(currentRatio, currentCompany);
             ViewData["calculatedRatios"] = calculatedRatios;
-            List<Article> articles = Article.GetArticleByRatio(currentRatio, currentCompany);
+            List<Article> articles = Article.getArticles();
+            articles = articles.Where(a => a.CompanyID == currentCompany.ID).ToList();
+            if (articleFilter == "ratio")
+            {
+                 articles = Article.GetArticleByRatio(currentRatio, currentCompany);
+            }
             if (articles.Count < 1)
             {
                 Article blankArticle = new Article()
@@ -47,7 +51,7 @@ namespace cpamvc.Controllers
             ViewData["companies"] = companies;
             ViewData["ratios"] = ratios;
             ViewData["articles"] = articles; //Article.GetArticleByRatio(currentRatio, currentCompany);
-            
+            ViewData["articleSort"] = articleFilter;
             return View();
         }
 

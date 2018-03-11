@@ -8,7 +8,10 @@ using Newtonsoft.Json;
 namespace cpamvc.Models
 {
     public class Ratio
-    {   
+    {
+        private static SqlConnection sqlConn = new SqlConnection("Server=localhost;Database=cpa;Trusted_Connection=True;");
+
+
         [JsonProperty("id")]
         public int ID { get; set; }
          
@@ -72,6 +75,21 @@ namespace cpamvc.Models
             }
             return ratioList.OrderBy(r => r.Name).ToList();
 
+        }
+        public static int DeleteRatio(int id)
+        {
+            int rows = -1;
+            try
+            {
+                sqlConn.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM ratio WHERE id = @id", sqlConn);
+                cmd.Parameters.AddWithValue("@id", id);
+                rows = cmd.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch(Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
+
+            return rows;
         }
         public static Ratio GetRatio(int id)
         {
