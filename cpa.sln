@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cpamvc", "cpamvc\cpamvc.csproj", "{E245A121-FBAC-445F-BD3B-E22DBACF0E7E}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "cpa Database", "cpa Database\cpa Database.sqlproj", "{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{E245A121-FBAC-445F-BD3B-E22DBACF0E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E245A121-FBAC-445F-BD3B-E22DBACF0E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E245A121-FBAC-445F-BD3B-E22DBACF0E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288E8AE8-B9F7-469C-B6EA-EC4E3DDE3FF7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
