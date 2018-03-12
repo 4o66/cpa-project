@@ -64,6 +64,7 @@
     <Folder Include="Storage\" />
     <Folder Include="Security\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\ratio_construct.sql" />
